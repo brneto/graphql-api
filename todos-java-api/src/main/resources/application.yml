@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    show_sql: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+        type: trace
+
+server:
+  port: 8080

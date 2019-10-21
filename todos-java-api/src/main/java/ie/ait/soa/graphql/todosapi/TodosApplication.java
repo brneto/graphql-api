@@ -1,13 +1,13 @@
-package ie.ait.soa.rest.todoapi;
+package ie.ait.soa.graphql.todosapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TodoApplication {
+public class TodosApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(TodoApplication.class, args);
+    SpringApplication.run(TodosApplication.class, args);
   }
 
 }

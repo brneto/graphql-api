@@ -1,10 +1,10 @@
-package ie.ait.soa.rest.todoapi.service;
+package ie.ait.soa.graphql.todosapi.service;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
-import ie.ait.soa.rest.todoapi.model.Todo;
-import ie.ait.soa.rest.todoapi.repository.TodoRepository;
+import ie.ait.soa.graphql.todosapi.model.Todo;
+import ie.ait.soa.graphql.todosapi.repository.TodoRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

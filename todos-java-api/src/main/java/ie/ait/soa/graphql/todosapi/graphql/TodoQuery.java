@@ -1,8 +1,8 @@
-package ie.ait.soa.rest.todoapi.graphql;
+package ie.ait.soa.graphql.todosapi.graphql;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import ie.ait.soa.rest.todoapi.model.Todo;
-import ie.ait.soa.rest.todoapi.service.TodoService;
+import ie.ait.soa.graphql.todosapi.model.Todo;
+import ie.ait.soa.graphql.todosapi.service.TodoService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;

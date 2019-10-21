@@ -1,6 +1,6 @@
-package ie.ait.soa.rest.todoapi.repository;
+package ie.ait.soa.graphql.todosapi.repository;
 
-import ie.ait.soa.rest.todoapi.model.Todo;
+import ie.ait.soa.graphql.todosapi.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

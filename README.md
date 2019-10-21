@@ -1,4 +1,4 @@
 # graphql-api
-Implementation of server side GraphQL API in different languages
+Implementations of server side GraphQL API.
 
 ![graphql-logo](./graphql-logo.png)

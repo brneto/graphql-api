@@ -1,4 +1,4 @@
 # GraphQL Server Side API
-Implementations examples of server side GraphQL API.
+Implementation examples of a server side GraphQL API.
 
 ![graphql-logo](./graphql-logo.png)

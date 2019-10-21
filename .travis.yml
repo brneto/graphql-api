@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - oraclejdk8
+  - openjdk8
+  
+deploy:
+  provider: heroku
+ # api_key:
+ #   secure: "YOUR ENCRYPTED API KEY"
+  app: todos-graphql-api
+
+script: cd todos-java-api && mvn package

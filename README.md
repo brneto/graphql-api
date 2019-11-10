@@ -2,7 +2,7 @@ GraphQL Server Side API [![Build Status](https://travis-ci.com/brneto/graphql-ap
 ======
 Implementation examples of a server side GraphQL API
 
-![logo][graphql-logo]
+![main][graphql]
 
 <!--images reference-->
-[graphql-logo]: ./graphql-logo.png "GraphQL"
+[graphql]: ./graphql.png "GraphQL"

@@ -3,12 +3,14 @@ type Todo {
     text: String!
     completed: Boolean
 }
-
+# [C, Create; R, Read; U, Update]
+# [R]
 type Query {
     todos(count: Int): [Todo]
     todo(id: ID!): Todo
 }
 
+# [C, U]
 type Mutation {
     createTodo(text: String!): Todo
     toggleTodoCompleted(id: ID!): Todo

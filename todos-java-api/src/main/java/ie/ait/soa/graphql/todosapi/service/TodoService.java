@@ -28,8 +28,20 @@ public class TodoService {
     return todoRepository.save(new Todo(text));
   }
 
+  public Optional<Todo> deleteTodoById(final Long id) {
+    logger.info("{}.deleteTodo called with id = {}", this.getClass().getSimpleName(), id);
+    return todoRepository
+        .findById(id)
+        .map(this::deleteAndReturnTodo);
+  }
+
+  private Todo deleteAndReturnTodo(Todo todo) {
+    todoRepository.delete(todo);
+    return todo;
+  }
+
   @Transactional
-  public Optional<Todo> toggleTodoCompleted(final Long id) {
+  public Optional<Todo> toggleTodoCompletedById(final Long id) {
     logger.info("{}.toggleTodoCompleted called with id = {}", this.getClass().getSimpleName(), id);
     return todoRepository
         .findById(id)

@@ -16,6 +16,10 @@ public class TodoMutation implements GraphQLMutationResolver {
   public Todo createTodo(final String text) { return todoService.createTodo(text); }
 
   public Optional<Todo> toggleTodoCompleted(final Long id) {
-    return todoService.toggleTodoCompleted(id);
+    return todoService.toggleTodoCompletedById(id);
+  }
+
+  public Optional<Todo> deleteTodo(final Long id) {
+    return todoService.deleteTodoById(id);
   }
 }

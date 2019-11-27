@@ -1,9 +1,9 @@
+# [C->Create; R->Read; U->Update]
 type Todo {
     id: ID!
     text: String!
     completed: Boolean
 }
-# [C, Create; R, Read; U, Update]
 # [R]
 type Query {
     todos(count: Int): [Todo]

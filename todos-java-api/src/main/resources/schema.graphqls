@@ -4,6 +4,7 @@ type Todo {
     text: String!
     completed: Boolean
 }
+
 # [R]
 type Query {
     todos(count: Int): [Todo]

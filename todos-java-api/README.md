@@ -1,6 +1,6 @@
 ### How to run
 
-Run this app localy executing the following command in the terminal:
+Run this app locally executing the following command in the terminal:
 
     mvn package && java -jar target/todos-java-api-1.0-SNAPSHOT.jar
 

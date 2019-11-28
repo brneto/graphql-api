@@ -28,6 +28,13 @@ public class TodoService {
     return todoRepository.save(new Todo(text));
   }
 
+  public List<Todo> deleteAllTodos() {
+    List<Todo> todos = todoRepository.findAll();
+    todoRepository.deleteAll();
+
+    return todos;
+  }
+
   public Optional<Todo> deleteTodoById(final Long id) {
     logger.info("{}.deleteTodo called with id = {}", this.getClass().getSimpleName(), id);
     return todoRepository

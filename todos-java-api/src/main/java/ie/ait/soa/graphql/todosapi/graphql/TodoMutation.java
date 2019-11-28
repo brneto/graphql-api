@@ -3,6 +3,7 @@ package ie.ait.soa.graphql.todosapi.graphql;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import ie.ait.soa.graphql.todosapi.model.Todo;
 import ie.ait.soa.graphql.todosapi.service.TodoService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,9 @@ public class TodoMutation implements GraphQLMutationResolver {
 
   public Optional<Todo> deleteTodo(final Long id) {
     return todoService.deleteTodoById(id);
+  }
+
+  public List<Todo> deleteAllTodos() {
+    return todoService.deleteAllTodos();
   }
 }

@@ -15,4 +15,5 @@ type Mutation {
     createTodo(text: String!): Todo
     toggleTodoCompleted(id: ID!): Todo
     deleteTodo(id: ID!): Todo
+    deleteAllTodos: [Todo]
 }

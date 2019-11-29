@@ -1,6 +1,6 @@
 package ie.ait.soa.graphql.todosapi.service;
 
-import static java.util.Optional.ofNullable;
+import static java.util.Optional.empty;
 import static java.util.stream.Collectors.toList;
 
 import ie.ait.soa.graphql.todosapi.model.Todo;
@@ -16,57 +16,61 @@ public class TodoService {
 
   private final TodoRepository todoRepository;
   private final Logger logger;
+  private final String className = getClass().getSimpleName();
 
-  TodoService(final TodoRepository todoRepository, final Logger logger) {
+  TodoService(TodoRepository todoRepository, Logger logger) {
     this.todoRepository = todoRepository;
     this.logger = logger;
   }
 
   @Transactional
   public Todo createTodo(final String text) {
-    logger.info("{}.createTodo called with text = {}", this.getClass().getSimpleName(), text);
+    logger.info("{}.createTodo called with text = {}", className, text);
     return todoRepository.save(new Todo(text));
   }
 
+  @Transactional
   public List<Todo> deleteAllTodos() {
-    List<Todo> todos = todoRepository.findAll();
+    logger.info("{}.deleteAllTodos called", className);
+
+    List<Todo> todoList = getTodos(empty());
     todoRepository.deleteAll();
-
-    return todos;
+    return todoList;
   }
 
-  public Optional<Todo> deleteTodoById(final Long id) {
-    logger.info("{}.deleteTodo called with id = {}", this.getClass().getSimpleName(), id);
-    return todoRepository
-        .findById(id)
-        .map(this::deleteAndReturnTodo);
+  @Transactional
+  public Optional<Todo> deleteTodoById(Long id) {
+    logger.info("{}.deleteTodo called with id = {}", className, id);
+    return getTodo(id).map(this::deleteTodo);
   }
 
-  private Todo deleteAndReturnTodo(Todo todo) {
+  private Todo deleteTodo(Todo todo) {
     todoRepository.delete(todo);
     return todo;
   }
 
   @Transactional
-  public Optional<Todo> toggleTodoCompletedById(final Long id) {
-    logger.info("{}.toggleTodoCompleted called with id = {}", this.getClass().getSimpleName(), id);
-    return todoRepository
-        .findById(id)
-        .map(Todo::toggleCompleted);
+  public Optional<Todo> toggleTodoCompletedById(Long id) {
+    logger.info("{}.toggleTodoCompleted called with id = {}", className, id);
+    return getTodo(id).map(Todo::toggleCompleted);
   }
 
   @Transactional(readOnly = true)
-  public Optional<Todo> getTodo(final Long id) {
-    logger.info("{}.getTodo called with id = {}", this.getClass().getSimpleName(), id);
+  public Optional<Todo> getTodo(Long id) {
+    logger.info("{}.getTodo called with id = {}", className, id);
     return todoRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Todo> getTodos(final Long limit) {
-    logger.info("{}.getTodos called with limit = {}", this.getClass().getSimpleName(), limit);
+  public List<Todo> getTodos(Optional<Long> limit) {
+    logger.info("{}.getTodos called with limit = {}", className,
+        limit.isPresent() ? limit.get() : "empty");
+
     return todoRepository.findAll()
         .stream()
-        .limit(ofNullable(limit).isPresent() ? limit : Long.MAX_VALUE)
+        .limit(limit
+                .filter(l -> l > 0)
+                .orElse(Long.MAX_VALUE))
         .collect(toList());
   }
 

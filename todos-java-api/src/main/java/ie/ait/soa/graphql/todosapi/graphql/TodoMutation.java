@@ -12,15 +12,15 @@ public class TodoMutation implements GraphQLMutationResolver {
 
   private final TodoService todoService;
 
-  TodoMutation(final TodoService todoService) { this.todoService = todoService; }
+  TodoMutation(TodoService todoService) { this.todoService = todoService; }
 
-  public Todo createTodo(final String text) { return todoService.createTodo(text); }
+  public Todo createTodo(String text) { return todoService.createTodo(text); }
 
-  public Optional<Todo> toggleTodoCompleted(final Long id) {
+  public Optional<Todo> toggleTodoCompleted(Long id) {
     return todoService.toggleTodoCompletedById(id);
   }
 
-  public Optional<Todo> deleteTodo(final Long id) {
+  public Optional<Todo> deleteTodo(Long id) {
     return todoService.deleteTodoById(id);
   }
 

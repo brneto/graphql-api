@@ -17,6 +17,10 @@ public class TodoQuery implements GraphQLQueryResolver {
 
   public Optional<Todo> getTodo(Long id) { return todoService.getTodo(id); }
 
-  public List<Todo> getTodos(Optional<Long> limit) { return todoService.getTodos(limit); }
+  public List<Todo> getTodos(Optional<Long> limit) {
+    return limit.isPresent()
+        ? todoService.getTodos(limit.get())
+        : todoService.getTodos();
+  }
 
 }

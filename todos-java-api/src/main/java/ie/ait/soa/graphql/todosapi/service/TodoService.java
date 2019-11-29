@@ -33,7 +33,7 @@ public class TodoService {
   public List<Todo> deleteAllTodos() {
     logger.info("{}.deleteAllTodos called", className);
 
-    List<Todo> todoList = getTodos(empty());
+    List<Todo> todoList = getTodos(0L);
     todoRepository.deleteAll();
     return todoList;
   }
@@ -62,15 +62,21 @@ public class TodoService {
   }
 
   @Transactional(readOnly = true)
-  public List<Todo> getTodos(Optional<Long> limit) {
-    logger.info("{}.getTodos called with limit = {}", className,
-        limit.isPresent() ? limit.get() : "empty");
+  public List<Todo> getTodos() { return getTodos(0L); }
+
+  @Transactional(readOnly = true)
+  public List<Todo> getTodos(Long limit) {
+    boolean hasLimit = limit > 0;
+
+    if (hasLimit) {
+      logger.info("{}.getTodos called with limit = {}", className, limit);
+    } else {
+      logger.info("{}.getTodos called without limit", className);
+    }
 
     return todoRepository.findAll()
         .stream()
-        .limit(limit
-                .filter(l -> l > 0)
-                .orElse(Long.MAX_VALUE))
+        .limit(hasLimit ? limit : Long.MAX_VALUE)
         .collect(toList());
   }
 

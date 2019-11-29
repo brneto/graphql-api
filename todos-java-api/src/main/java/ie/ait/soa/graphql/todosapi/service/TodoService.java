@@ -24,14 +24,14 @@ public class TodoService {
   }
 
   @Transactional
-  public Todo createTodo(final String text) {
-    logger.info("{}.createTodo called with text = {}", className, text);
+  public Todo createTodo(String text) {
+    logger.info("{}.createTodo({}) called", className, text);
     return todoRepository.save(new Todo(text));
   }
 
   @Transactional
   public List<Todo> deleteAllTodos() {
-    logger.info("{}.deleteAllTodos called", className);
+    logger.info("{}.deleteAllTodos() called", className);
 
     List<Todo> todoList = getTodos(0L);
     todoRepository.deleteAll();
@@ -40,7 +40,7 @@ public class TodoService {
 
   @Transactional
   public Optional<Todo> deleteTodoById(Long id) {
-    logger.info("{}.deleteTodo called with id = {}", className, id);
+    logger.info("{}.deleteTodo({}) called", className, id);
     return getTodo(id).map(this::deleteTodo);
   }
 
@@ -51,13 +51,13 @@ public class TodoService {
 
   @Transactional
   public Optional<Todo> toggleTodoCompletedById(Long id) {
-    logger.info("{}.toggleTodoCompleted called with id = {}", className, id);
+    logger.info("{}.toggleTodoCompleted({}) called", className, id);
     return getTodo(id).map(Todo::toggleCompleted);
   }
 
   @Transactional(readOnly = true)
   public Optional<Todo> getTodo(Long id) {
-    logger.info("{}.getTodo called with id = {}", className, id);
+    logger.info("{}.getTodo({}) called", className, id);
     return todoRepository.findById(id);
   }
 
@@ -67,12 +67,11 @@ public class TodoService {
   @Transactional(readOnly = true)
   public List<Todo> getTodos(Long limit) {
     boolean hasLimit = limit > 0;
+    String logMessage = hasLimit
+          ? String.format("%s.getTodos(%d) called", className, limit)
+          : String.format("%s.getTodos() called", className);
 
-    if (hasLimit) {
-      logger.info("{}.getTodos called with limit = {}", className, limit);
-    } else {
-      logger.info("{}.getTodos called without limit", className);
-    }
+    logger.info(logMessage);
 
     return todoRepository.findAll()
         .stream()

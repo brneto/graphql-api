@@ -64,7 +64,6 @@ public class TodoService {
   @Transactional(readOnly = true)
   public List<Todo> getTodos(Long limit) {
     logger.info("{}.getTodos({}) called", className, limit);
-
     return todoRepository.findAll()
         .stream()
         .limit(limit > 0 ? limit : Long.MAX_VALUE)

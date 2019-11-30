@@ -62,20 +62,12 @@ public class TodoService {
   }
 
   @Transactional(readOnly = true)
-  public List<Todo> getTodos() { return getTodos(0L); }
-
-  @Transactional(readOnly = true)
   public List<Todo> getTodos(Long limit) {
-    boolean hasLimit = limit > 0;
-    String logMessage = hasLimit
-          ? String.format("%s.getTodos(%d) called", className, limit)
-          : String.format("%s.getTodos() called", className);
-
-    logger.info(logMessage);
+    logger.info("{}.getTodos({}) called", className, limit);
 
     return todoRepository.findAll()
         .stream()
-        .limit(hasLimit ? limit : Long.MAX_VALUE)
+        .limit(limit > 0 ? limit : Long.MAX_VALUE)
         .collect(toList());
   }
 

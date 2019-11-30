@@ -7,7 +7,7 @@ type Todo {
 
 # [R]
 type Query {
-    todos(count: Int): [Todo]
+    todos(count: Int = 0): [Todo]
     todo(id: ID!): Todo
 }
 

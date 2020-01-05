@@ -17,3 +17,5 @@ your GraphQL query pointing to *http://localhost:8080/graphql*.
   - No DTO objects needed
 - Layers:
 ![Layers Diagram](./layersDiagram.png)
+---
+![Class Diagram](./ClassDiagram.png)

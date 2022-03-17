@@ -17,6 +17,8 @@
 
   <properties>
     <java.version>17</java.version>
+    <build.name>${project.artifactId}-${project.version}</build.name>
+    <management.port>8081</management.port>
   </properties>
 
   <dependencies>
@@ -89,6 +91,7 @@
   </dependencies>
 
   <build>
+    <finalName>${build.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

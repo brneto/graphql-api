@@ -5,16 +5,19 @@ import ie.ait.soa.graphql.todosapi.model.Todo;
 import ie.ait.soa.graphql.todosapi.service.TodoService;
 import java.util.List;
 import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class TodoMutation implements GraphQLMutationResolver {
 
   private final TodoService todoService;
 
-  TodoMutation(TodoService todoService) { this.todoService = todoService; }
-
-  public Todo createTodo(String text) { return todoService.createTodo(text); }
+  public Todo createTodo(String text) {
+    return todoService.createTodo(text);
+  }
 
   public Optional<Todo> toggleTodoCompleted(Long id) {
     return todoService.toggleTodoCompletedById(id);

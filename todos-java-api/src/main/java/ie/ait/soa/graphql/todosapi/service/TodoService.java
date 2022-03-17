@@ -1,37 +1,33 @@
 package ie.ait.soa.graphql.todosapi.service;
 
-import static java.util.Optional.empty;
-import static java.util.stream.Collectors.toList;
-
 import ie.ait.soa.graphql.todosapi.model.Todo;
 import ie.ait.soa.graphql.todosapi.repository.TodoRepository;
-import java.util.List;
-import java.util.Optional;
-import org.slf4j.Logger;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
+
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class TodoService {
 
   private final TodoRepository todoRepository;
-  private final Logger logger;
-  private final String className = getClass().getSimpleName();
-
-  TodoService(TodoRepository todoRepository, Logger logger) {
-    this.todoRepository = todoRepository;
-    this.logger = logger;
-  }
 
   @Transactional
   public Todo createTodo(String text) {
-    logger.info("{}.createTodo({}) called", className, text);
+    log.info("createTodo({}) called", text);
     return todoRepository.save(new Todo(text));
   }
 
   @Transactional
   public List<Todo> deleteAllTodos() {
-    logger.info("{}.deleteAllTodos() called", className);
+    log.info("deleteAllTodos() called");
 
     List<Todo> todoList = getTodos(0L);
     todoRepository.deleteAll();
@@ -40,7 +36,7 @@ public class TodoService {
 
   @Transactional
   public Optional<Todo> deleteTodoById(Long id) {
-    logger.info("{}.deleteTodo({}) called", className, id);
+    log.info("deleteTodo({}) called", id);
     return getTodo(id).map(this::deleteTodo);
   }
 
@@ -51,19 +47,19 @@ public class TodoService {
 
   @Transactional
   public Optional<Todo> toggleTodoCompletedById(Long id) {
-    logger.info("{}.toggleTodoCompleted({}) called", className, id);
+    log.info("toggleTodoCompleted({}) called", id);
     return getTodo(id).map(Todo::toggleCompleted);
   }
 
   @Transactional(readOnly = true)
   public Optional<Todo> getTodo(Long id) {
-    logger.info("{}.getTodo({}) called", className, id);
+    log.info("getTodo({}) called", id);
     return todoRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
   public List<Todo> getTodos(Long limit) {
-    logger.info("{}.getTodos({}) called", className, limit);
+    log.info("getTodos({}) called", limit);
     return todoRepository.findAll()
         .stream()
         .limit(limit > 0 ? limit : Long.MAX_VALUE)

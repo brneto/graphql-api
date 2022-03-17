@@ -19,7 +19,6 @@ public class TodoController {
 
     @QueryMapping
     public Optional<Todo> todo(@Argument Long id) {
-        System.out.println("call this getTodo");
         return todoService.getTodo(id);
     }
 

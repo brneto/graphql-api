@@ -1,0 +1,8 @@
+# .graphqlconfig=/Users/brneto/repo/graphql-api/todos-java-api/src/main/resources/graphql!
+
+mutation TodoMutation {
+    createTodo(text: "Hello World!") {
+        text
+        completed
+    }
+}

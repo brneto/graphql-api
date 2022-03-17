@@ -2,6 +2,7 @@ package ie.ait.soa.graphql.todosapi.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,17 +12,20 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
 @Entity
 public class Todo implements Serializable {
 
   @Id
   @GeneratedValue
   private Long id;
-  @Builder.Default private String text = "";
-  @Builder.Default private Boolean completed = false;
+  private String text = "";
+  private Boolean completed = false;
 
-  public Todo() {}
+  @Builder
+  public Todo(String text) {
+    this.text = text;
+  }
 
   public Todo toggle() {
     completed = !completed;

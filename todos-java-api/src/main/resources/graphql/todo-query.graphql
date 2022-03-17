@@ -1,0 +1,8 @@
+# .graphqlconfig=/Users/brneto/repo/graphql-api/todos-java-api/src/main/resources/graphql!
+
+query TodoQuery {
+    todos {
+        text
+        completed
+    }
+}

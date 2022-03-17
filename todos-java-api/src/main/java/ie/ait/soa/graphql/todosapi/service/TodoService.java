@@ -1,6 +1,6 @@
 package ie.ait.soa.graphql.todosapi.service;
 
-import ie.ait.soa.graphql.todosapi.model.Todo;
+import ie.ait.soa.graphql.todosapi.entity.Todo;
 import ie.ait.soa.graphql.todosapi.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class TodoService {
   @Transactional
   public Todo createTodo(String text) {
     log.info("createTodo({}) called", text);
-    return todoRepository.save(new Todo(text));
+    return todoRepository.save(Todo.builder().text(text).build());
   }
 
   @Transactional
@@ -46,9 +46,9 @@ public class TodoService {
   }
 
   @Transactional
-  public Optional<Todo> toggleTodoCompletedById(Long id) {
+  public Optional<Todo> toggleTodoById(Long id) {
     log.info("toggleTodoCompleted({}) called", id);
-    return getTodo(id).map(Todo::toggleCompleted);
+    return getTodo(id).map(Todo::toggle);
   }
 
   @Transactional(readOnly = true)

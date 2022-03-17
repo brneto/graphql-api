@@ -1,6 +1,6 @@
 package ie.ait.soa.graphql.todosapi.controller;
 
-import ie.ait.soa.graphql.todosapi.model.Todo;
+import ie.ait.soa.graphql.todosapi.entity.Todo;
 import ie.ait.soa.graphql.todosapi.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -34,8 +34,8 @@ public class TodoController {
     }
 
     @MutationMapping
-    public Optional<Todo> toggleTodoCompleted(@Argument Long id) {
-        return todoService.toggleTodoCompletedById(id);
+    public Optional<Todo> toggleTodo(@Argument Long id) {
+        return todoService.toggleTodoById(id);
     }
 
     @MutationMapping

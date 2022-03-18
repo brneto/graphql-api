@@ -6,8 +6,16 @@ import graphql.GraphQLError;
 import graphql.language.SourceLocation;
 
 import java.util.List;
+import java.util.Map;
 
 public class TodoNotFoundException extends RuntimeException implements GraphQLError {
+
+    private Map<String, Object> extensions;
+
+    public TodoNotFoundException(Long invalidTodoId) {
+        this.extensions = Map.of("invalidTodoId", invalidTodoId);
+    }
+
     @Override
     public List<SourceLocation> getLocations() {
         return List.of(SourceLocation.EMPTY);
@@ -16,5 +24,10 @@ public class TodoNotFoundException extends RuntimeException implements GraphQLEr
     @Override
     public ErrorClassification getErrorType() {
         return ErrorType.DataFetchingException;
+    }
+
+    @Override
+    public Map<String, Object> getExtensions() {
+        return extensions;
     }
 }

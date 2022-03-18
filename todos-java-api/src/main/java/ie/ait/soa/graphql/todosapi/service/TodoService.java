@@ -1,6 +1,7 @@
 package ie.ait.soa.graphql.todosapi.service;
 
 import ie.ait.soa.graphql.todosapi.entity.Todo;
+import ie.ait.soa.graphql.todosapi.exception.TodoNotFoundException;
 import ie.ait.soa.graphql.todosapi.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,9 @@ public class TodoService {
   }
 
   @Transactional
-  public Optional<Todo> deleteTodoById(Long id) {
+  public Todo deleteTodoById(Long id) {
     log.info("deleteTodo({}) called", id);
-    return getTodo(id).map(this::deleteTodo);
+    return deleteTodo(getTodo(id).orElseThrow(TodoNotFoundException::new));
   }
 
   private Todo deleteTodo(Todo todo) {
@@ -46,9 +47,9 @@ public class TodoService {
   }
 
   @Transactional
-  public Optional<Todo> toggleTodoById(Long id) {
+  public Todo toggleTodoById(Long id) {
     log.info("toggleTodoCompleted({}) called", id);
-    return getTodo(id).map(Todo::toggle);
+    return getTodo(id).orElseThrow(TodoNotFoundException::new).toggle();
   }
 
   @Transactional(readOnly = true)

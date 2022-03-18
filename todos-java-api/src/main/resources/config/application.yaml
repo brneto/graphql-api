@@ -9,8 +9,6 @@ spring:
     log-request-details: on
 
   graphql:
-    graphiql:
-      enabled: true
     schema:
       printer:
         enabled: true

@@ -1,5 +1,6 @@
 package ie.ait.soa.graphql.todosapi.service;
 
+import graphql.GraphQLException;
 import ie.ait.soa.graphql.todosapi.entity.Todo;
 import ie.ait.soa.graphql.todosapi.exception.TodoNotFoundException;
 import ie.ait.soa.graphql.todosapi.repository.TodoRepository;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,7 +40,8 @@ public class TodoService {
   @Transactional
   public Todo deleteTodoById(Long id) {
     log.info("deleteTodo({}) called", id);
-    return deleteTodo(getTodo(id).orElseThrow(TodoNotFoundException::new));
+    return deleteTodo(getTodo(id)
+            .orElseThrow(buildNotFoundException(id)));
   }
 
   private Todo deleteTodo(Todo todo) {
@@ -49,7 +52,12 @@ public class TodoService {
   @Transactional
   public Todo toggleTodoById(Long id) {
     log.info("toggleTodoCompleted({}) called", id);
-    return getTodo(id).orElseThrow(TodoNotFoundException::new).toggle();
+    return getTodo(id)
+            .orElseThrow(buildNotFoundException(id)).toggle();
+  }
+
+  private Supplier<GraphQLException> buildNotFoundException(Long id) {
+    return () -> new TodoNotFoundException(id);
   }
 
   @Transactional(readOnly = true)

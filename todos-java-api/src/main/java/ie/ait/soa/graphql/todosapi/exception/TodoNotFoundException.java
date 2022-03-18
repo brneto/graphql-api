@@ -1,33 +1,11 @@
 package ie.ait.soa.graphql.todosapi.exception;
 
-import graphql.ErrorClassification;
-import graphql.ErrorType;
-import graphql.GraphQLError;
-import graphql.language.SourceLocation;
+import graphql.GraphQLException;
 
-import java.util.List;
-import java.util.Map;
-
-public class TodoNotFoundException extends RuntimeException implements GraphQLError {
-
-    private Map<String, Object> extensions;
+public class TodoNotFoundException extends GraphQLException {
 
     public TodoNotFoundException(Long invalidTodoId) {
-        this.extensions = Map.of("invalidTodoId", invalidTodoId);
+        super(String.format("Todo id %s not found", invalidTodoId));
     }
 
-    @Override
-    public List<SourceLocation> getLocations() {
-        return List.of(SourceLocation.EMPTY);
-    }
-
-    @Override
-    public ErrorClassification getErrorType() {
-        return ErrorType.DataFetchingException;
-    }
-
-    @Override
-    public Map<String, Object> getExtensions() {
-        return extensions;
-    }
 }

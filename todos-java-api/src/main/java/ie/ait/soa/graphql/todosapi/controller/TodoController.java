@@ -1,7 +1,6 @@
 package ie.ait.soa.graphql.todosapi.controller;
 
 import ie.ait.soa.graphql.todosapi.entity.Todo;
-import ie.ait.soa.graphql.todosapi.exception.TodoNotFoundException;
 import ie.ait.soa.graphql.todosapi.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
